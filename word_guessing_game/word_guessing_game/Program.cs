@@ -33,7 +33,8 @@ namespace word_guessing_game
             string userInput = Console.ReadLine();
             if (userInput == "1")
             {
-
+                Console.Clear();
+                Gameplay(path);
             }
             if (userInput == "2")
             {
@@ -101,8 +102,21 @@ namespace word_guessing_game
                     }
                 }
 
+                Console.WriteLine($"Guesses Attempted: {guesses}");
+                Console.WriteLine($"Wrong Guesses: {incorrect} ");
+                Console.WriteLine(check);
             }
-            
+            Console.ReadLine();
+            Gameplay(path);
         }
-     }
+
+        static void Exit(string Path)
+        {
+            File.Delete(Path);
+            Console.WriteLine("THANK YOU FOR PLAYING!");
+            Console.Read();
+            Environment.Exit(0);
+        }
+
+    }
 }
