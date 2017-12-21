@@ -1,0 +1,5 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/word_guessing_game/.vs/word_guessing_game/v15/Server/sqlite3
