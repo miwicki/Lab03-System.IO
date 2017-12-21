@@ -51,6 +51,58 @@ namespace word_guessing_game
             {
 
             }
+            
+        }
+        static void Gameplay(string path)
+        {
+            string randomSelect = GetWord(path);
+            string check = "";
+            string incorrect = "";
+            int guesses = 0;
+
+            char[] guessArray = randomSelect.ToCharArray();
+            char[] returnArray = new char[guessArray.Length];
+            char[] userGuessesArray = new char[guessArray.Length];
+
+            while (true)
+            {
+                if (check == randomSelect)
+                {
+                    Console.WriteLine("YOU WIN!");
+                    break;
+                }
+                Console.WriteLine("GUESS A LETTER OR WORD.");
+                userGuessesArray = Console.ReadLine().ToCharArray();
+                guesses++;
+                Console.Clear();
+
+                for (int i = 0; i < guessArray.Length; i++)
+                {
+                    if (returnArray[i] != guessArray[i])
+                    {
+                        returnArray[i] = '_';
+                    }
+                    for (int k = 0; k < userGuessesArray.Length; k++)
+                    {
+                        if (userGuessesArray[k] == guessArray[i])
+                        {
+                            returnArray[i] = guessArray[i];
+                            check = new string(returnArray);
+                        }
+                    }
+
+                }
+
+                foreach (char letter in userGuessesArray)
+                {
+                    if (Array.IndexOf(returnArray, letter) < 0)
+                    {
+                        incorrect += letter + " ";
+                    }
+                }
+
+            }
+            
         }
      }
 }
