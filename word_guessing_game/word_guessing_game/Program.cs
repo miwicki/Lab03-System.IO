@@ -38,22 +38,144 @@ namespace word_guessing_game
             }
             if (userInput == "2")
             {
-
+                Console.Clear();
+                GetAllWords(path);
+                Console.ReadLine();
+                Gameplay(path);
             }
             if (userInput == "3")
             {
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine("Enter a word you would like to add.");
 
+                string addWord = Console.ReadLine().ToLower();
+                AddWord(addWord, path);
+
+                GetAllWords(path);
+                Gameplay(path);
             }
             if (userInput == "4")
             {
+                Console.Clear();
+                GetAllWords(path);
 
+                Console.WriteLine("Enter a word you would like to remove.");
+                string rmWord = Console.ReadLine().ToLower();
+                RemoveWord(rmWord, path);
+                Console.Clear();
+
+                GetAllWords(path);
+                Console.ReadLine();
+                Gameplay(path);
             }
             if (userInput == "5")
             {
+                Console.Clear();
+                Exit(path);
+            }
+            Console.Read;
+        }
+
+                static void Init(string path)
+        {
+            string[] defaultWords = new String[10];
+            defaultWords[0] = "sailboat";
+            defaultWords[1] = "transluscent";
+            defaultWords[2] = "cooperate";
+            defaultWords[3] = "rendezvous";
+            defaultWords[4] = "jazz";
+            defaultWords[5] = "lynx";
+            defaultWords[6] = "buzzing";
+            defaultWords[7] = "vessels";
+            defaultWords[8] = "soap";
+            defaultWords[9] = "neighborhood";
+
+        }
+
+        static string GetWord(string path)
+        {
+            using (StreamReader sr = File.OpenText(path))
+            {
+                string[] words = File.ReadAllLines(path);
+                Random rand = new Random();
+                int roll = rand.Next(0, words.Length -1);
+                return words[roll];
+            }
+        }
+
+        static string[] GetAllWords(string path)
+        {
+            using (StreamReader sr = File.OpenText(path))
+            {
+                string[] words = File.ReadAllLines(path);
+
+                int length = words.Length;
+
+                foreach (string word in words)
+                {
+                    Console.WriteLine(word);
+                }
+                return words;
+            }
+        }
+    
+        static void AddWord(string newWord, string path)
+        {
+            string[] all = GetAllWords(path);
+
+            string[] newAll = new string[all.Length + 1];
+
+            newAll[0] = newWord;
+
+            for (int i = 0; i < all.Length; i++)
+            {
+                if (all[i] == newWord)
+                {
+                    Console.WriteLine("The word you added is already on the list.");
+                    return;
+                }
+                newAll[i + 1] = all[i];
+            }
+           
+           
+
+        }
+
+        
+        static void RemoveWord(string remove, string path)
+        { 
+       
+            string[] all = GetAllWords(path);
+                       
+            string[] newAll = new string[all.Length - 1];
+                        
+            bool removed = false;
+                     
+            int removeAt = Array.IndexOf(all, remove);
+                        
+            for (int i = 0; i < all.Length; i++)
+            {
+
+                if (removed == true)
+                {
+                    newAll[i - 1] = all[i];
+                }
+                if (i != removeAt && removed == false)
+                {
+                    newAll[i] = all[i];
+                }
+                else
+                {
+                    removed = true;
+                }
 
             }
+
             
+
         }
+
         static void Gameplay(string path)
         {
             string randomSelect = GetWord(path);
